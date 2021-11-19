@@ -1,0 +1,102 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 12, 2021, 12:23:04 AM
+    Author     : juand
+*/
+
+.main-container{
+    padding-top: 40px;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-bottom: 310px;
+    background-color: #2F3131;
+    height: 90%;
+    float: left;
+    position: relative;
+}
+
+.main-footer{
+    clear: both;
+}
+
+
+
+
+
+
+
+.container-menu-button-cart{
+    background-color: #D5303E;
+    color:#F8F1E5;
+    font-size: xx-large;
+    border: 3px solid #2F3131;
+    border-radius: 5px;
+    width: 200px;
+    height: 60px;
+    margin-right: 0;
+}
+
+.container-menu-button-cart:hover{
+    cursor: pointer;
+    color: #F9BA32;
+}
+
+
+
+
+
+
+.dialog-buttons-delete , .dialog-buttons-pay{
+    font-size: x-large;
+    border: 3px solid #000;
+    border-radius: 5px;
+    width: 130px;
+    height: 40px;
+    text-align: center;
+
+}
+.dialog-buttons-delete{
+    margin-bottom: 20px;
+    background-color: #229954;
+    color: #F8F1E5;
+}
+.dialog-buttons-pay{
+    color: #F8F1E5;
+    background-color: #229954;
+
+}
+.dialog-buttons-delete:hover{
+    color: #F9BA32;
+    cursor: pointer;
+}
+.dialog-buttons-pay:hover{
+    color: #F9BA32;
+    cursor: pointer;
+}
+
+
+
+.info-message{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 600px;
+    height: 110px;
+    background-color: #F8F1E5;
+    border-radius: 10px;
+    border: 5px solid #426E86;
+    clear: both;
+}
+.table-content{
+    float: left;
+    width: 70%;
+}
+.dialog-buttons{
+    float: left;
+    width: 20%
+}

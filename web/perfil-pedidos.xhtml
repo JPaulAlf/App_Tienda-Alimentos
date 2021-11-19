@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>SACP - Pedidos</title>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet"  href="CSS/cliente-pedidos.css"/>
+
+    </h:head>
+    <h:body>
+          <div class="container-menu">
+            <h:form>
+                <p:menubar class="container-menu-bar">
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Inicio" url="perfil-bienvenida.xhtml" />
+                    <p:menuitem class="container-menu-bar-item ui-g-12" onclick="#{bean_Perfil_VerPerfil.inspeccionarCliente()}" value="Ver Perfil"  url="perfil-verperfil.xhtml" />
+                    <p:menuitem class="container-menu-bar-item ui-g-12" onclick="#{bean_Cliente_Pedido.llenaLista()}" value="Pedidos" url="perfil-pedidos.xhtml" />
+                    <f:facet name="options">
+                        <h:commandButton value="Salir"  class=" container-menu-button" action="index"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
+
+        <div class="main-container">
+            <div class="main-message">
+                <h2  class="message-1">Favor seleccionar un registro, para ver su contenido</h2>
+                <h2  class="message-1">¡¡Los pedidos se actualizan, justo cuando un administrador lo acepte!!</h2>
+            </div>
+
+
+            <div class="container-table">
+                <div class="table">
+                    <h:form>
+                        <div class="table-main-container">
+
+                            <p:dataTable rowKey="#{transaccion.idTransaccion}" var="transaccion" value="#{bean_Cliente_Pedido.listaTransacciones}" 
+                                         selectionMode="single" selection="#{bean_Cliente_Pedido.transaccionSeleccionada}" 
+                                         scrollable="true" scrollHeight="300" class="table-orders">
+
+                                <p:column headerText="Fecha" class="table-Fecha">
+                                    <h:outputText value="#{transaccion.fecEstimada_Mascara}" />
+                                </p:column>
+
+                                <p:column headerText="Estado" class="table-Estado">
+                                    <h:outputText value="#{transaccion.estadoPedido}" />
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <h:commandButton  actionListener="#{bean_Cliente_Pedido.verDetalles()}" value="Ver detalles" class=" button-VerDetalles"/>
+                                    <h:commandButton  actionListener="#{bean_Cliente_Pedido.limpiar()}" value="Limpiar" class=" button-Limpiar"/>
+                                </f:facet>
+
+                            </p:dataTable>
+
+
+                            <p:dataTable rowKey="#{producto.idProducto}" var="producto" value="#{bean_Cliente_Pedido.listaProductosTransaccion}" 
+                                         selectionMode="single" selection="#{bean_Cliente_Pedido.productoSeleccionado}" 
+                                         scrollable="true" scrollHeight="300" class="table-detail">
+
+                                <p:column headerText="Nombre" class="table-Fecha">
+                                    <h:outputText value="#{producto.nombre}" />
+                                </p:column>
+
+                                <p:column headerText="Cantidad" class="table-Fecha">
+                                    <h:outputText value="#{producto.cantComprada}" />
+                                </p:column>
+
+                                <p:column headerText="Precio Unidad" class="table-Fecha">
+                                    <h:outputText value="#{producto.precio_Mascara}" />
+                                </p:column>
+
+                                <p:column headerText="Total" class="table-Estado">
+                                    <h:outputText value="#{producto.totalCantComprada_Mascara}" />
+                                </p:column>
+
+                            </p:dataTable>
+
+                            <div class="info-message">
+                                <table>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Estado:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Pedido.estadoPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Fecha Estimada:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Pedido.fechaEstimadaPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Subtotal:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Pedido.subtotalPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Descuento:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Pedido.descuentoPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Impuesto:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Pedido.impuestoPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Total:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Pedido.totalPedido}</h3>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div> 
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="main-footer">
+            <p>
+                <ul>
+                    Desarrolladores, diseñadores, autores, creadores 
+                    <li>John P. Alfaro C.</li>
+                    <li>Juan D. Araya C.</li>
+                </ul>
+            </p>
+            <P>
+                Proyecto final programado para la carrera de Ingeniería del Software de la Universidad Técnica Nacional
+            </P>
+            <p>
+                © 2021 CodIn Solutions, Inc
+            </p>
+        </div>
+
+    </h:body>
+</html>
+
+
+

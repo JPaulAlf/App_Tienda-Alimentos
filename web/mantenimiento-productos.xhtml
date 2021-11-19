@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+    <h:head>
+        <title>SACP - Mantenimiento de Productos</title>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet" href="CSS/mantenimiento-productos.css"/>
+    </h:head>
+    <h:body>
+        <div class="container-menu">
+            <h:form>
+                <p:menubar class="container-menu-bar">
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Productos" url="mantenimiento-productos.xhtml" />
+                    <p:menuitem class="container-menu-bar-item ui-g-12 " value="Clientes" url="mantenimiento-clientes.xhtml"/>
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Facturacion" url="mantenimiento-facturacion.xhtml"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Despacho" url="mantenimiento-despacho.xhtml"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Reportes" url="mantenimiento-reportes.xhtml"   />
+                    <f:facet name="options">
+                        <h:commandButton value="Salir"  class=" container-menu-button" action="index"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
+        <div class="main-container">
+            <h:form id="form">
+                <p:outputLabel id="alert-form" class="alert-form" value="#{bean_MantenimientoProductos.mensaje}"/>
+                <p:dataTable  id="table" rowKey="#{producto.idProducto}" var="producto" value="#{bean_MantenimientoProductos.productosTable}" 
+                              selectionMode="single" selection="#{bean_MantenimientoProductos.producto}" 
+                              scrollable="true" scrollHeight="200" class="table-orders">
+
+                    <p:column headerText="Identificacion" class="table-Fecha">
+                        <h:outputText value="#{producto.idProducto}" />
+                    </p:column>
+
+                    <p:column headerText="Nombre" class="table-Fecha">
+                        <h:outputText value="#{producto.nombre}" />
+                    </p:column>
+                    <p:column headerText="Categoría" class="table-Fecha">
+                        <h:outputText value="#{producto.categoria}" />
+                    </p:column>
+
+                    <p:column headerText="Stock" class="table-Estado">
+                        <h:outputText value="#{producto.stock}"/>
+                    </p:column>
+
+                    <p:column headerText="Precio" class="table-Estado">
+                        <h:outputText value="#{producto.precio_Mascara}"/>
+                    </p:column>
+
+                    <p:column headerText="Activo / Inactivo" class="table-Estado">
+                        <h:outputText value="#{producto.displayActivoInactivo}"/>
+                    </p:column>
+                    <p:column headerText="Imagen" class="table-Estado">
+                        <o:graphicImage id="photo-display" value="#{producto.foto}" dataURI="true" style="display: block; margin-left: 30%" width="100px"  height="100px" class="table-Imagen" />
+                    </p:column>
+
+                    <f:facet  name="footer" class="table-footer">
+                        <div class="crud-buttons ">
+
+                            <h:commandButton value="Guardar" class="main-container-form-button-check" onclick ="#{bean_Cliente_Productos.actualizarCatalogo()}" actionListener="#{bean_MantenimientoProductos.insertarProducto()}"/>
+                            <h:commandButton value="Modificar" style="background-color: #FF7C74" class="main-container-form-button-check" onclick ="#{bean_Cliente_Productos.actualizarCatalogo()}" actionListener="#{bean_MantenimientoProductos.actualizarProducto()}"/>
+                            <h:commandButton style="background-color: #dbbd2b" value="Cambiar Estado" class="main-container-form-button-check" actionListener="#{bean_MantenimientoProductos.cambiarEstadoProducto()}"/>
+
+                        </div>
+                    </f:facet>
+                </p:dataTable>
+
+                <div class="card">
+                    <div class="ui-g-6 ui-md-2">
+                        <div class="ui-inputgroup " style="margin-top: 30px">
+                            <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
+                            <p:inputMask id="search"  style="width: 130px; margin-right: 30px" value="#{bean_MantenimientoProductos.buscarID}" placeholder="Buscar Producto" mask="999999999" validateMask="true"/>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <p:commandButton  value="Buscar" update=" alert-form table" class="btn-select" actionListener="#{bean_MantenimientoProductos.buscar()}" style="background-color: #a45f2f; color:#2F3131;border:0px solid #598b96;"/>
+                        <p:commandButton  value="Inspeccionar" update="alert-form general-data photo-display" class="btn-clean" actionListener="#{bean_MantenimientoProductos.cargarDatosProductos()}"  style=" background-color: #e09f4f; color:#2F3131; border:0px solid #598b96;"/>
+                        <p:commandButton   value="Limpiar"  update="alert-form search table general-data photo-display" class="btn-clean" actionListener="#{bean_MantenimientoProductos.limpiar()}"  style=" background-color: #b35d66; color:#2F3131; border:0px solid #598b96;"/>
+                        <p:commandButton value="Ayuda" update="helpLabel" class="btn-help" actionListener="#{bean_MantenimientoProductos.ayuda()}"  style="background-color: #598b96; color:#2F3131; border:0px solid #598b96;" />
+                        <p:outputLabel  id="helpLabel" class="alert-help" value="#{bean_MantenimientoProductos.etiquetaAyuda}"/>
+                    </div>
+                </div>
+
+
+                <div class="main-container">
+
+
+                    <div class="main-container-form">
+
+                        <div class="main-container-form-items">
+                            <p:fieldset id="general-data"  legend="Datos Generales del Producto" toggleable="true" toggleSpeed="500" class="main-container-form-item">
+                                <div class="ui-g ui-fluid">
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup" >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                                            <p:inputText value="#{bean_MantenimientoProductos.nombre}" placeholder="Nombre" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup " >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-newspaper-o"></i></span>
+                                            <p:inputMask value="#{bean_MantenimientoProductos.idProducto}" placeholder="ID" mask="999999999" validateMask="true" class="main-container-form-item-unit"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup " >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-money"></i></span>
+                                            <p:inputNumber  value="#{bean_MantenimientoProductos.precio}" placeholder="Precio"  />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-4 ">
+                                    <p:outputLabel  value="Categoría "/>
+                                    <br/>
+                                    <p:selectOneMenu   value="#{bean_MantenimientoProductos.idCategoria}">
+                                        <f:selectItems value="#{bean_MantenimientoProductos.listaCategoria}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="ui-g-12  ui-md-4">
+                                    <p:outputLabel  value="Cantidad"/>
+                                    <br/>
+                                    <p:spinner id="minMax" value="#{bean_MantenimientoProductos.cantMinVenta}"  min="1" max="100"/>
+                                </div>
+
+                            </p:fieldset>
+                            <br></br>
+                            <br></br>
+                            <p:fieldset id="get-photo" legend="Imagen del Producto" toggleable="true" toggleSpeed="500" class="main-container-form-item">
+                                <div class="form-photo">
+                                    <div class="ui-g ui-fluid">
+                                        <div class="ui-g-12 ui-md-4">
+                                            <div class="ui-inputgroup" >
+                                                <div class="image-box-container-search">
+                                                    <h5  style="color: #000">Foto del Producto</h5>
+                                                    <p:fileUpload   update="photo-display" class="form-photo-button" 
+                                                                    chooseIcon="fa-folder" label="Escoger Imagen" listener="#{bean_MantenimientoProductos.fotoProducto}" mode="advanced"
+                                                                    auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(jpe?g|png)$/"/>
+                                                    <p:growl id="message-photo" showDetail="true"/>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4">
+                                            <div class="ui-inputgroup" >
+                                                <div class="image-box-container"> 
+                                                    <label class="image-box-container-label">Imagen encontrada: </label>
+                                                    <o:graphicImage id="photo-display" value="#{bean_MantenimientoProductos.displayFoto}" dataURI="true" style="display: block; margin-left: 30%" width="100%"  height="100%" class="table-Imagen" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:fieldset>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+        <div class="main-footer">
+            <p>
+                <ul>
+                    Desarrolladores, diseñadores, autores, creadores 
+                    <li>John P. Alfaro C.</li>
+                    <li>Juan D. Araya C.</li>
+                </ul>
+            </p>
+            <P>
+                Proyecto final programado para la carrera de Ingeniería del Software de la Universidad Técnica Nacional
+            </P>
+            <p>
+                © 2021 CodIn Solutions, Inc
+            </p>
+        </div>
+    </h:body>
+</html>

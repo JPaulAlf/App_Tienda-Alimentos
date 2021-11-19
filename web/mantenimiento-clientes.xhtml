@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>SACP - Mantenimiento de Clientes</title>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet" href="CSS/mantenimiento-clientes.css"/>
+    </h:head>
+    <h:body>
+        <div class="container-menu">
+            <h:form>
+                <p:menubar class="container-menu-bar">
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Productos" url="mantenimiento-productos.xhtml" />
+                    <p:menuitem class="container-menu-bar-item ui-g-12 " value="Clientes" url="mantenimiento-clientes.xhtml"/>
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Facturacion" url="mantenimiento-facturacion.xhtml"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Despacho" url="mantenimiento-despacho.xhtml"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Reportes" url="mantenimiento-reportes.xhtml"   />
+                    <f:facet name="options">
+                        <h:commandButton value="Salir"  class=" container-menu-button" action="index"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
+        <div class="main-container">
+
+            <h:form id="form">
+                <p:outputLabel id="err-lab" value="#{bean_Mantenimiento_Clientes.etiquetaErr}" class="err-label"/>
+                <p:dataTable  id="table-client" rowKey="#{cliente.identificacion}" var="cliente" value="#{bean_Mantenimiento_Clientes.listaClientes}" 
+                              selectionMode="single" selection="#{bean_Mantenimiento_Clientes.clienteSeleccionado}" 
+                              scrollable="true" scrollHeight="200" class="table-orders">
+
+                    <p:column headerText="Identificacion" class="table-Fecha">
+                        <h:outputText value="#{cliente.identificacion}" />
+                    </p:column>
+
+                    <p:column headerText="Nombre" class="table-Fecha">
+                        <h:outputText value="#{cliente.nombre}" />
+                    </p:column>
+
+                    <p:column headerText="Correo" class="table-Estado">
+                        <h:outputText value="#{cliente.correo}" />
+                    </p:column>
+
+                    <p:column headerText="Aprobado" class="table-Estado">
+                        <h:outputText value="#{cliente.esAprobado()}" />
+                    </p:column>
+                    <p:column headerText="Denegado" class="table-Estado">
+                        <h:outputText value="#{cliente.esDenegado()}" />
+                    </p:column>
+                    
+                    <p:column headerText="Estado" class="table-Estado">
+                        <h:outputText value="#{cliente.esActivo()}" />
+                    </p:column>
+
+                    <f:facet  name="footer" class="table-footer">
+                        <div  class="crud-buttons ">
+                            <h:commandButton value="Denegar" style=" margin-top: 4px; background-color: #437aa9"  class="main-container-form-button-check" actionListener="#{bean_Mantenimiento_Clientes.denegaCliente()}"/>
+                            <h:commandButton value="Aprobar" style=" margin-top: 4px; background-color: #437aa9"  class="main-container-form-button-check" actionListener="#{bean_Mantenimiento_Clientes.apruebaCliente()}"/>
+                            <h:commandButton value="Guardar" style="margin-top: 4px;" class="main-container-form-button-check" actionListener="#{bean_Mantenimiento_Clientes.registrarCliente()}"/>
+                            <h:commandButton value="Modificar" style=" margin-top: 4px; background-color: #FF7C74" class="main-container-form-button-check" onclick ="#" actionListener="#{bean_Mantenimiento_Clientes.modificaCliente()}"/>
+                            <h:commandButton value="Cambia Estado" style="margin-top: 4px; background-color: #dbbd2b"  class="main-container-form-button-check" actionListener="#{bean_Mantenimiento_Clientes.cambiaEstadoCliente()}"/>
+                        </div>
+                    </f:facet>
+                </p:dataTable>
+
+
+                <div class="card">
+
+                    <div class="ui-g-6 ui-md-2">
+                        <div class="ui-inputgroup " style="margin-top: 30px">
+                            <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
+                            <p:inputMask style="width: 105px;" value="#{bean_Mantenimiento_Clientes.clienteBuscado}" placeholder="Buscar cliente" mask="9-9999-9999" validateMask="true"/>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <p:commandButton  value="Buscar" update="table-client err-lab" class="btn-select" actionListener="#{bean_Mantenimiento_Clientes.buscarCliente()}" style="background-color: #a45f2f; color:#2F3131;border:0px solid #598b96;"/>
+                        <p:commandButton  update="data1 data2 data3 data4 err-lab" class="btn-clean" actionListener="#{bean_Mantenimiento_Clientes.inspeccionarCliente()}" value="Inspeccionar" style=" background-color: #e09f4f; color:#2F3131; border:0px solid #598b96;"/>
+                        <p:commandButton  update="data1 data2 data3 data4 table-client err-lab" class="btn-clean" actionListener="#{bean_Mantenimiento_Clientes.limpiaCampos()}" value="Limpiar" style=" background-color: #b35d66; color:#2F3131; border:0px solid #598b96;"/>
+                        <p:commandButton  update="helpLabel" class="btn-help" actionListener="#{bean_Mantenimiento_Clientes.ayudaEtiqueta()}" value="Ayuda" style="background-color: #598b96; color:#2F3131; border:0px solid #598b96;" />
+                        <p:outputLabel  id="helpLabel" class="alert-help" value="#{bean_Mantenimiento_Clientes.etiquetaAyuda}"/>
+                    </div>
+
+                </div>
+
+
+                <div class="main-container" >
+
+                    <div class="main-container-form">
+
+                        <div class="main-container-form-items">
+                            <p:fieldset id="data1" legend="Datos personales"  toggleSpeed="500" class="main-container-form-item">
+                                <div class="ui-g ui-fluid">
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup" >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                                            <p:inputText value="#{bean_Mantenimiento_Clientes.nombre}" placeholder="Nombre" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup " >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-newspaper-o"></i></span>
+                                            <p:inputMask value="#{bean_Mantenimiento_Clientes.identificacion}" placeholder="Identificación" mask="9-9999-9999" validateMask="true" class="main-container-form-item-unit"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup " >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-phone"></i></span>
+                                            <p:inputMask value="#{bean_Mantenimiento_Clientes.telefono}" placeholder="Teléfono" mask="(999) 9999-9999" validateMask="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ui-g ui-fluid">
+                                    <div class="ui-g-12 ui-md-6">
+                                        <div class="ui-inputgroup" >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-at"></i></span>
+                                            <p:inputText value="#{bean_Mantenimiento_Clientes.correoElectronico}" placeholder="Correo electrónico"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup " >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+                                            <p:password placeholder="Contraseña" value="#{bean_Mantenimiento_Clientes.contrasenia}" redisplay="true" feedback="true"
+                                                        promptLabel="Contraseña" weakLabel="Débil" goodLabel="Buena" strongLabel="Fuerte"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:fieldset>
+                            <br></br>
+                            <br></br>
+                            <p:fieldset id="data2" legend="Metodo de pago"  toggleSpeed="500" class="main-container-form-item">
+                                <div class="ui-g ui-fluid">
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup" >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-credit-card"></i></span>
+                                            <p:inputMask value="#{bean_Mantenimiento_Clientes.numeroTarjeta}" placeholder="Numero Tarjeta" mask="9999-9999-9999-9999" validateMask="true" class="main-container-form-item-unit"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup " >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-cc"></i></span>
+                                            <p:inputMask value="#{bean_Mantenimiento_Clientes.numeroCVV}" placeholder="Numero CVV" mask="9-9-9" validateMask="true" class="main-container-form-item-unit"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup " >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-check-circle-o"></i></span>
+                                            <p:selectOneMenu value = "#{bean_Mantenimiento_Clientes.tipoTarjeta}"> 
+                                                <f:selectItem itemValue = "-" itemLabel = "Tipo Tarjeta" /> 
+                                                <f:selectItem itemValue = "Master Card" itemLabel = "Master Card" /> 
+                                                <f:selectItem itemValue = "Visa" itemLabel = "Visa" /> 
+                                            </p:selectOneMenu>                                   
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ui-g ui-fluid">
+                                    <div class="ui-g-12 ui-md-6">
+                                        <div class="ui-inputgroup" >
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-calendar"></i></span>
+                                            <p:inputMask value="#{bean_Mantenimiento_Clientes.vencimientoTarjeta}" placeholder="Vencimiento  mes/año" mask="99/9999" validateMask="true" class="main-container-form-item-unit"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:fieldset>
+                            <br></br>
+                            <br></br>
+                            <p:fieldset id="data3" legend="Dirección"  toggleSpeed="500"  class="main-container-form-item">
+                                <div class="ui-g ui-fluid">
+                                    <div class="ui-g-12 ui-md-3 ">
+                                        <p:outputLabel for="@next" value="Provincia"/>
+                                        <p:selectOneMenu disabled="#{bean_Mantenimiento_Clientes.estadoProvincia}"   id="Provincia"  value="#{bean_Mantenimiento_Clientes.idProvincia}">
+                                            <p:ajax event="valueChange" update="Canton Barrio Distrito" listener="#{bean_Mantenimiento_Clientes.estadoCantonFuncion()}" />
+                                            <f:selectItems value="#{bean_Mantenimiento_Clientes.listaProvincia}"/>
+                                            <f:facet name="footer">
+                                                <h:outputText value="#{bean_Mantenimiento_Clientes.cantProvincia}" style="font-weight:bold;"/>
+                                            </f:facet>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-3">
+                                        <p:outputLabel for="@next" value="Canton"/>
+                                        <p:selectOneMenu disabled="#{bean_Mantenimiento_Clientes.estadoCanton}"  id="Canton"  value="#{bean_Mantenimiento_Clientes.idCanton}">
+                                            <p:ajax event="valueChange" update="Canton Barrio Distrito" listener="#{bean_Mantenimiento_Clientes.estadoDistritoFuncion()}" />
+                                            <f:selectItems value="#{bean_Mantenimiento_Clientes.listaCanton}"/>
+                                            <f:facet name="footer">
+                                                <h:outputText value="#{bean_Mantenimiento_Clientes.cantCanton}" style="font-weight:bold;"/>
+                                            </f:facet>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-3">
+                                        <p:outputLabel  for="@next" value="Distrito"/>
+                                        <p:selectOneMenu  disabled="#{bean_Mantenimiento_Clientes.estadoDistrito}"  id="Distrito"  value="#{bean_Mantenimiento_Clientes.idDistrito}">
+                                            <p:ajax event="valueChange" update="Canton Barrio Distrito" listener="#{bean_Mantenimiento_Clientes.estadoBarrioFuncion()}" />
+                                            <f:selectItems value="#{bean_Mantenimiento_Clientes.listaDistrito}"/>
+                                            <f:facet name="footer">
+                                                <h:outputText value="#{bean_Mantenimiento_Clientes.cantDistrito}" style="font-weight:bold;"/>
+                                            </f:facet>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-3">
+                                        <p:outputLabel for="@next" value="Barrio"/>
+                                        <p:selectOneMenu disabled="#{bean_Mantenimiento_Clientes.estadoBarrio}"  id="Barrio"  value="#{bean_Mantenimiento_Clientes.idBarrio}">
+                                            <f:selectItems value="#{bean_Mantenimiento_Clientes.listaBarrio}"/>
+                                            <f:facet name="footer">
+                                                <h:outputText value="#{bean_Mantenimiento_Clientes.cantBarrio}" style="font-weight:bold;"/>
+                                            </f:facet>
+                                        </p:selectOneMenu>
+                                    </div>                        
+                                </div>
+                                <div class="ui-g ui-fluid">
+                                    <div class="ui-g-12 ui-md-6">
+                                        <div class="ui-inputgroup">
+                                            <span class="ui-inputgroup-addon"><i class="fa fa-street-view"></i></span>
+                                            <p:inputText value="#{bean_Mantenimiento_Clientes.direccionSenias}" placeholder="Señas"/>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-4">
+                                        <div class="ui-inputgroup" >
+                                            <h:commandButton  value="Extra" class="main-container-form-button" actionListener="#{bean_Mantenimiento_Clientes.agregaDireccion()}" />
+                                            <p:outputLabel id="ing-label" value="#{bean_Mantenimiento_Clientes.etiquetaDirec}" class="ing-label"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p:dataTable id="table-direc" rowKey="#{direccion.idNumDireccion}" var="direccion" value="#{bean_Mantenimiento_Clientes.listaDirecciones}" 
+                                             selectionMode="single" selection="#{bean_Mantenimiento_Clientes.direccionSeleccionada}" 
+                                             scrollable="true" scrollHeight="200" class="table-orders">
+
+                                    <p:column headerText="Provincia" class="table-Fecha">
+                                        <h:outputText value="#{direccion.provincia}" />
+                                    </p:column>
+
+                                    <p:column headerText="Canton" class="table-Fecha">
+                                        <h:outputText value="#{direccion.canton}" />
+                                    </p:column>
+
+                                    <p:column headerText="Distrito" class="table-Estado">
+                                        <h:outputText value="#{direccion.distrito}" />
+                                    </p:column>
+
+                                    <p:column headerText="Barrio" class="table-Estado">
+                                        <h:outputText value="#{direccion.barrio}" />
+                                    </p:column>
+
+                                    <p:column headerText="Señas" class="table-Estado">
+                                        <h:outputText value="#{direccion.sennas}" />
+                                    </p:column>
+
+                                    <p:column headerText="Estado" class="table-Estado">
+                                        <h:outputText value="#{direccion.esActivo()}" />
+                                    </p:column>
+
+                                    <f:facet name="footer" class="table-footer">
+                                        <div class="crud-buttons">
+                                            <p:outputLabel id="err-lab2" value="#{bean_Mantenimiento_Clientes.etiquetaErr_Direcciones}" class="err-label"/>
+                                            <p:commandButton  disabled="#{bean_Mantenimiento_Clientes.etiquetaBandera_Direcciones}" value="Modificar" update="table-direc err-lab2" class="main-container-form-button-check" actionListener="#{bean_Mantenimiento_Clientes.modificaDireccion()}" style="margin-top: 4px;color:#2F3131; background-color: #FF7C74; border:0px solid #598b96; height: 30px; font-size: large; font-weight: bold"/>
+                                            <p:commandButton  disabled="#{bean_Mantenimiento_Clientes.etiquetaBandera_Direcciones}" value="Guardar" update="table-direc err-lab2" class="main-container-form-button-check" actionListener="#{bean_Mantenimiento_Clientes.registrarDireccion()}" style="margin-top: 4px;background-color: #229954; color:#2F3131; border:0px solid #598b96; height: 30px; font-size: large; font-weight: bold" />
+                                            <p:commandButton  disabled="#{bean_Mantenimiento_Clientes.etiquetaBandera_Direcciones}" value="Cambia Estado" update="table-direc err-lab2" class="main-container-form-button-check" actionListener="#{bean_Mantenimiento_Clientes.cambiaEstadoDireccion()}" style="margin-top: 4px; color:#2F3131; background-color: #dbbd2b; border:0px solid #598b96; height: 30px; font-size: large; font-weight: bold"/>
+                                        </div>
+                                    </f:facet>
+                                </p:dataTable>
+                                <p:commandButton  disabled="#{bean_Mantenimiento_Clientes.etiquetaBandera_Direcciones}" value="Inspeccionar" update="data3 table-direc" class="main-container-form-button-check" actionListener="#{bean_Mantenimiento_Clientes.inspeccionarDireccion()}" style="width: 75%;margin-left: 50%; transform: translateX(-50%);margin-top: 4px; background-color: #e09f4f; color:#2F3131; border:0px solid #598b96; height: 30px; font-size: large; font-weight: bold"/>
+                            </p:fieldset>
+                            <br></br>
+                            <br></br>
+                            <p:fieldset id="data4" legend="Información adicional"  toggleSpeed="500"  class="main-container-form-item" >
+                                <div class="ui-g ui-fluid">
+                                    <div class="ui-g-12 ui-md-6">
+                                        <p:outputLabel for="@next" value="Horarios de entrega" class="main-container-form-label"/>
+                                        <div class="ui-inputgroup" >
+                                            <p:selectManyCheckbox id="basic" value="#{bean_Mantenimiento_Clientes.horarioEntrega}" >
+                                                <f:selectItem itemLabel="Mañana" itemValue="Mañana"/>
+                                                <f:selectItem itemLabel="Tarde" itemValue="Tarde"/>
+                                                <f:selectItem itemLabel="Noche" itemValue="Noche"/>
+                                            </p:selectManyCheckbox>
+                                        </div>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-6">
+                                        <p:commandButton  disabled="#{bean_Mantenimiento_Clientes.etiquetaBandera_Direcciones}" value="Modificar horario" update="table-direc" class="main-container-form-button-check" actionListener="#{bean_Mantenimiento_Clientes.modificaHorario()}" style="margin-top: 4px;background-color: #FF7C74; color:#2F3131; border:0px solid #598b96; height: 30px; font-size: large; font-weight: bold" />
+                                    </div>
+                                </div>
+                            </p:fieldset>
+                        </div>
+                    </div>
+                </div>
+
+            </h:form>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <div class="main-footer">
+            <p>
+                <ul>
+                    Desarrolladores, diseñadores, autores, creadores 
+                    <li>John P. Alfaro C.</li>
+                    <li>Juan D. Araya C.</li>
+                </ul>
+            </p>
+            <P>
+                Proyecto final programado para la carrera de Ingeniería del Software de la Universidad Técnica Nacional
+            </P>
+            <p>
+                © 2021 CodIn Solutions, Inc
+            </p>
+        </div>
+    </h:body>
+</html>

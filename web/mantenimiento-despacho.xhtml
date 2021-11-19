@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>SACP - Mantenimiento Despacho</title>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet"  href="CSS/mantenimiento-despacho.css"/>
+
+    </h:head>
+    <h:body>
+        <div class="container-menu">
+            <h:form>
+                <p:menubar class="container-menu-bar">
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Productos" url="mantenimiento-productos.xhtml" />
+                    <p:menuitem class="container-menu-bar-item ui-g-12 " value="Clientes" url="mantenimiento-clientes.xhtml"/>
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Facturacion" url="mantenimiento-facturacion.xhtml"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Despacho" url="mantenimiento-despacho.xhtml"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Reportes" url="mantenimiento-reportes.xhtml"   />
+                    <f:facet name="options">
+                        <h:commandButton value="Salir"  class=" container-menu-button" action="index"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
+
+
+        <div class="main-container">
+
+            <div class="main-message">
+                <h2  class="message-1">Favor seleccionar un registro, para ver su contenido</h2>
+                <h2  class="message-1">¡¡Se deben de despachar los "Pedidos" que se encuentren pendientes!!</h2>
+            </div> 
+
+
+            <div class="container-table">
+                <div class="table">
+                    <h:form>
+                        <div class="table-main-container">
+
+                            <p:dataTable rowKey="#{transaccion.idTransaccion}" var="transaccion" value="#{bean_Mantenimiento_Despacho.listaTransacciones}" 
+                                         selectionMode="single" selection="#{bean_Mantenimiento_Despacho.transaccionSeleccionada}" 
+                                         scrollable="true" scrollHeight="300" class="table-orders">
+
+                                <p:column headerText="Fecha" class="table-Fecha">
+                                    <h:outputText value="#{transaccion.fecEstimada_Mascara}" />
+                                </p:column>
+
+                                <p:column headerText="Estado" class="table-Estado">
+                                    <h:outputText value="#{transaccion.estadoPedido}" />
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <h:commandButton  actionListener="#{bean_Mantenimiento_Despacho.verDetalles()}" value="Ver detalles" class=" button-VerDetalles"/>
+                                    <h:commandButton  actionListener="#{bean_Mantenimiento_Despacho.limpiar()}" value="Limpiar" class=" button-Limpiar"/>
+                                </f:facet>
+
+                            </p:dataTable>
+
+
+                            <p:dataTable rowKey="#{producto.idProducto}" var="producto" value="#{bean_Mantenimiento_Despacho.listaProductosTransaccion}" 
+                                         selectionMode="single" selection="#{bean_Mantenimiento_Despacho.productoSeleccionado}" 
+                                         scrollable="true" scrollHeight="300" class="table-detail">
+
+                                <p:column headerText="Nombre" class="table-Fecha">
+                                    <h:outputText value="#{producto.nombre}" />
+                                </p:column>
+
+                                <p:column headerText="Cantidad" class="table-Fecha">
+                                    <h:outputText value="#{producto.stock}" />
+                                </p:column>
+
+                                <p:column headerText="Precio Unidad" class="table-Fecha">
+                                    <h:outputText value="#{producto.precio_Mascara}" />
+                                </p:column>
+
+                                <p:column headerText="Total" class="table-Estado">
+                                    <h:outputText value="#{producto.totalCantComprada_Mascara}" />
+                                </p:column>
+
+                            </p:dataTable>
+
+                            <div class="info-message">
+                                <table>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Estado:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Mantenimiento_Despacho.estadoPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Fecha Estimada:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Mantenimiento_Despacho.fechaEstimadaPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Subtotal:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Mantenimiento_Despacho.subtotalPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Descuento:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Mantenimiento_Despacho.descuentoPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Impuesto:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Mantenimiento_Despacho.impuestoPedido}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Total:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Mantenimiento_Despacho.totalPedido}</h3>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <h:commandButton disabled="#{bean_Mantenimiento_Despacho.banderaBoton}" actionListener="#{bean_Mantenimiento_Despacho.despacharPedido()}" 
+                                                 value="Realizar despacho" class=" button-formalizar" style="#{bean_Mantenimiento_Despacho.banderaBoton_Estilo}"/>/>
+                            </div> 
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="main-footer">
+            <p>
+                <ul>
+                    Desarrolladores, diseñadores, autores, creadores 
+                    <li>John P. Alfaro C.</li>
+                    <li>Juan D. Araya C.</li>
+                </ul>
+            </p>
+            <P>
+                Proyecto final programado para la carrera de Ingeniería del Software de la Universidad Técnica Nacional
+            </P>
+            <p>
+                © 2021 CodIn Solutions, Inc
+            </p>
+        </div>
+
+    </h:body>
+</html>
+
+
+

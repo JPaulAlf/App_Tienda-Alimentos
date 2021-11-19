@@ -1,0 +1,118 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 9, 2021, 3:04:44 PM
+    Author     : juand
+*/
+
+
+
+
+
+.container{
+    padding-top: 50px;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-bottom: 300px;
+    background-color: #2F3131;
+    height: 90%;
+}
+
+.container-table-button-add{
+    font-size: larger;
+    background-color: #229954;
+    color: #F8F1E5;
+    border: 2px solid #2F3131;
+    border-radius: 5px;
+    width: 40%
+}
+.container-table-button-add:hover{
+    cursor: pointer;
+}
+.container-table-button-clean{
+    font-size: larger;
+    background-color: #dbbd2b;
+    color: #2F3131;
+    border: 2px solid #2F3131;
+    border-radius: 5px;
+    width: 40%;
+    margin-right: 10px;
+}
+.container-table-button-clean:hover{
+    cursor: pointer;
+}
+.table-ID{
+    text-align: center;
+}
+.table-name{
+    text-align: center;
+}
+.table-category{
+    text-align: center;
+}
+.table-amount{
+    text-align: center;
+}
+.table-imagen {
+
+}
+
+.ui-button, button.ui-button:hover{
+
+
+}
+
+
+.ui-button-text-only .ui-button-text {
+    padding: 0;
+}
+.container-alert-table{
+     display: block;
+    font-size: large;
+    text-align: left;
+    font-weight: bolder;
+    color: #F8F1E5;
+    background-color: #CF3721;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+}
+
+.list{
+    width: 70%;
+}
+
+
+.info-message{
+    text-align: center;
+    width: 100%;
+    margin-top: 10%;
+}
+
+
+.message-2{
+    color: #2F3131;
+    padding-bottom: 3px;
+    width: 20px;
+}
+.item-desc{
+    text-align: right;
+}
+.item-res{
+    padding-left: 15px;
+}
+.list-title{
+    font-size: xx-large;
+    color: #229954
+}
+
+.ui-dialog .ui-dialog-title {
+    float: left;
+    margin: .1em 16px .1em 0;
+    color: #353536;
+
+    font-size: xx-large !important;
+}

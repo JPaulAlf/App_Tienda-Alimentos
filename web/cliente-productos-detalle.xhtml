@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>SACP - Detalle</title>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet"  href="CSS/barraMenu.css"/>
+        <link rel="stylesheet"  href="CSS/cliente-productos-detalle.css"/>
+    </h:head>
+    <h:body>
+        <div class="container-menu">
+            <h:form>
+                <p:menubar class="container-menu-bar">
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Inicio" url="index.xhtml" />
+                    <p:menuitem class="container-menu-bar-item ui-g-12 "  value="Productos" url="cliente-productos.xhtml"  />
+                
+                    <f:facet name="options">
+                        <h:commandButton value="Regresar" class="container-menu-button-detail" action="cliente-productos-carrito.xhtml"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+
+        </div>
+        <div class="container-alert-table">
+            <h:outputLabel class="alert-table" id="alert-table" value="#{bean_Cliente_Productos.alertDetalle}"/>
+        </div>
+        <div class="main-container">
+            <h:form>
+                
+                <div class="main-message">
+                    <h2  class="message-1">Formalice su pedido</h2>
+                    <p:dataTable style=" margin: 50px 200px" var="producto" value="#{bean_Cliente_Productos.carrito}" 
+
+                                          scrollable="true" scrollHeight="300" class="table-detail">
+
+                                <p:column headerText="Nombre" class="table-Fecha">
+                                    <h:outputText value="#{producto.nombre}" />
+                                </p:column>
+
+                                <p:column headerText="Cantidad" class="table-Fecha">
+                                    <h:outputText value="#{producto.cantComprada}" />
+                                </p:column>
+
+                                <p:column headerText="Precio Unidad" class="table-Fecha">
+                                    <h:outputText value="#{producto.precio_Mascara}" />
+                                </p:column>
+
+                                <p:column headerText="Total" class="table-Estado">
+                                    <h:outputText value="#{producto.totalCantComprada_Mascara}" />
+                                </p:column>
+
+                            </p:dataTable>
+                    <div class="main-form-detail">
+                        <h5 for="@next" class="p-mt-0 list-title">Seleccione una dirección de entrega</h5>
+                        <p:dataTable id="table-direc" rowKey="#{direccion.idNumDireccion}" var="direccion" value="#{bean_Cliente_Productos.listaDirecciones}" 
+                                     selectionMode="single" selection="#{bean_Cliente_Productos.direccionSeleccionada}" 
+                                             scrollable="true" scrollHeight="150" class="table-directions">
+
+                                    <p:column headerText="Provincia" class="table-Fecha">
+                                        <h:outputText value="#{direccion.provincia}" />
+                                    </p:column>
+
+                                    <p:column headerText="Canton" class="table-Fecha">
+                                        <h:outputText value="#{direccion.canton}" />
+                                    </p:column>
+
+                                    <p:column headerText="Distrito" class="table-Estado">
+                                        <h:outputText value="#{direccion.distrito}" />
+                                    </p:column>
+
+                                    <p:column headerText="Barrio" class="table-Estado">
+                                        <h:outputText value="#{direccion.barrio}" />
+                                    </p:column>
+
+                                    <p:column headerText="Señas" class="table-Estado">
+                                        <h:outputText value="#{direccion.sennas}" />
+                                    </p:column>
+
+                                  
+
+                                   
+                                </p:dataTable>
+                        <br/>
+                        <br/>
+
+                        <h5 for="@next" class="p-mt-0 list-title">Seleccione uno de sus horarios de entrega</h5>
+                        <p:selectOneMenu  value="#{bean_Cliente_Productos.horarioSeleccionado}">
+                            <f:selectItems value="#{bean_Cliente_Productos.listaHorario}"/>
+                        </p:selectOneMenu>
+                        <br/>
+                        <br/>
+                        <h5 for="@next" class="p-mt-0 list-title">Seleccione el tipo de entrega</h5>
+
+                        <p:selectOneMenu  value="#{bean_Cliente_Productos.tipoEntrega_ID}">
+
+                            <f:selectItems value="#{bean_Cliente_Productos.listaTipoEntrega}"/>
+
+                        </p:selectOneMenu>
+                        <br/>
+                        <br/>
+                        <h5 class=" list-title p-mt-0">Seleccione cómo desea realizar su pago</h5>
+                        <p:selectOneRadio style="color: #fff" id="console" value="#{bean_Cliente_Productos.tipoPago}" >
+                            <f:selectItem  itemLabel="Crédito" itemValue="0"/>
+                            <f:selectItem itemLabel="Contado" itemValue="1"/>
+
+                        </p:selectOneRadio>
+                    </div>
+                    
+                </div>
+
+
+
+                <div class="container-table">
+                    
+                    <div class="table">
+
+                        <div class="table-main-container">
+
+
+
+                           
+
+                            <div class="info-message">
+                                <table>
+
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Fecha Estimada:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Productos.fechaEstimada}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Subtotal:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Productos.subtotal}</h3>
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Descuento:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Productos.descuento}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Impuesto:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Productos.impuestos}</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-desc">
+                                            <h3  class="message-2">Total:</h3>
+                                        </td>
+                                        <td class="item-res">
+                                            <h3  class="message-2">#{bean_Cliente_Productos.total}</h3>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <h:commandButton onclick="#{bean_Mantenimiento_Facturacion.llenaLista()}"   actionListener="#{bean_Cliente_Productos.formalizarPedido()}" value="Formalizar" class=" button-formalizar"/>
+                            </div> 
+
+                        </div>
+
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+
+
+        <div class="main-footer">
+            <p>
+                <ul>
+                    Desarrolladores, diseñadores, autores, creadores 
+                    <li>John P. Alfaro C.</li>
+                    <li>Juan D. Araya C.</li>
+                </ul>
+            </p>
+            <P>
+                Proyecto final programado para la carrera de Ingeniería del Software de la Universidad Técnica Nacional
+            </P>
+            <p>
+                © 2021 CodIn Solutions, Inc
+            </p>
+        </div>
+
+    </h:body>
+</html>
+
+
+
+
+

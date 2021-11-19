@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>SACP - Mantenimiento del sistema</title>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet" href="CSS/mantenimiento-bienvenida.css"/>
+        
+    </h:head>
+    <h:body>
+
+   <div class="container-menu">
+            <h:form>
+                <p:menubar class="container-menu-bar">
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Productos" url="mantenimiento-productos.xhtml" />
+                    <p:menuitem class="container-menu-bar-item ui-g-12 " value="Clientes"  url="mantenimiento-clientes.xhtml"  />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Facturacion" url="mantenimiento-facturacion.xhtml"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Despacho" url="mantenimiento-despacho.xhtml"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Reportes" url="mantenimiento-reportes.xhtml"   />
+                     <f:facet name="options">
+                         <h:commandButton value="Salir"  class=" container-menu-button" action="index"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
+        <div class="main-bar-image">
+            <img src="IMAGES/mark-label-recortada.jpg" class="main-image"/>
+        </div>
+        <div class="main-container">
+            <div class="main-message">
+                <h1>¡Bienvenido Administrador!</h1>
+                <h2 id="message-green" class="message-green">Este es el mantenimiento del sistema</h2>
+                <h2 id="message-green" class="message red">¡¡Todas las modificaciones tendrán incidencia en la base de datos!!</h2>
+            </div> 
+            <div class="main-container-form">
+               
+            </div>
+        </div>
+        <div class="main-footer">
+            <p>
+                <ul>
+                    Desarrolladores, diseñadores, autores, creadores 
+                    <li>John P. Alfaro C.</li>
+                    <li>Juan D. Araya C.</li>
+                </ul>
+            </p>
+            <P>
+                Proyecto final programado para la carrera de Ingeniería del Software de la Universidad Técnica Nacional
+            </P>
+            <p>
+                © 2021 CodIn Solutions, Inc
+            </p>
+        </div>
+    </h:body>
+</html>
+

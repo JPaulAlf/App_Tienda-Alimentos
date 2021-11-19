@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>SACP - Inicio</title>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet" href="CSS/barraMenu.css"/>
+        <link rel="stylesheet" href="CSS/index-paginaInicio.css"/>
+
+    </h:head>
+    <h:body> 
+
+        <div class="container-menu">
+            <h:form>
+                <p:menubar class="container-menu-bar">
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="Inicio" url="index.xhtml" />
+                    <p:menuitem class="container-menu-bar-item ui-g-12 "  value="Productos" url="cliente-productos.xhtml"  />
+                    <f:facet name="options">
+                        <h:commandButton value="Ingresar" class="container-menu-button" action="mantenimiento-inicioSesion.xhtml"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
+
+
+        <div class="main-bar-image">
+            <img src="IMAGES/mark-label-brand.jpg" class="main-image"/>
+        </div>
+        <div class="main-container">
+            <div class="main-message">
+                <h1>¡Bienvenido!</h1>
+                <h2 id="message-green" class="message-green">¿Eres nuevo, y quieres comprar con nosotros algun producto?</h2>
+                <h2 id="message-green" class="message-green">Registrese hoy mismo, y empieza a comprar al instante</h2>
+            </div> 
+            <div class="main-container-form">
+                <h:form>
+                    <div class="main-container-form-items">
+                        <p:fieldset id="data1" legend="Datos personales" toggleable="true" toggleSpeed="500" class="main-container-form-item">
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-12 ui-md-4">
+                                    <div class="ui-inputgroup" >
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                                        <p:inputText value="#{bean_FormInicio.nombre}" placeholder="Nombre" maxlength="20" />
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-4">
+                                    <div class="ui-inputgroup " >
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-newspaper-o"></i></span>
+                                        <p:inputMask value="#{bean_FormInicio.identificacion}" placeholder="Identificación" mask="9-9999-9999" validateMask="true" class="main-container-form-item-unit"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-4">
+                                    <div class="ui-inputgroup " >
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-phone"></i></span>
+                                        <p:inputMask value="#{bean_FormInicio.telefono}" placeholder="Teléfono" mask="(999) 9999-9999" validateMask="true"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-12 ui-md-6">
+                                    <div class="ui-inputgroup" >
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-at"></i></span>
+                                        <p:inputText value="#{bean_FormInicio.correoElectronico}" placeholder="Correo electrónico"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-4">
+                                    <div class="ui-inputgroup " >
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+                                        <p:password placeholder="Contraseña" value="#{bean_FormInicio.contrasenia}" redisplay="true" feedback="true"
+                                                    promptLabel="Contraseña" weakLabel="Débil" goodLabel="Buena" strongLabel="Fuerte"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:fieldset>
+                        <br></br>
+                        <br></br>
+                        <p:fieldset id="data2" legend="Metodo de pago" toggleable="true" toggleSpeed="500" class="main-container-form-item">
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-12 ui-md-4">
+                                    <div class="ui-inputgroup" >
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-credit-card"></i></span>
+                                        <p:inputMask value="#{bean_FormInicio.numeroTarjeta}" placeholder="Numero Tarjeta" mask="9999-9999-9999-9999" validateMask="true" class="main-container-form-item-unit"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-4">
+                                    <div class="ui-inputgroup " >
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-cc"></i></span>
+                                        <p:inputMask value="#{bean_FormInicio.numeroCVV}" placeholder="Numero CVV" mask="9-9-9" validateMask="true" class="main-container-form-item-unit"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-4">
+                                    <div class="ui-inputgroup " >
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-check-circle-o"></i></span>
+                                        <p:selectOneMenu value = "#{bean_FormInicio.tipoTarjeta}"> 
+                                            <f:selectItem itemValue = "-" itemLabel = "Tipo Tarjeta" /> 
+                                            <f:selectItem itemValue = "Master Card" itemLabel = "Master Card" /> 
+                                            <f:selectItem itemValue = "Visa" itemLabel = "Visa" /> 
+                                        </p:selectOneMenu>                                   
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-12 ui-md-6">
+                                    <div class="ui-inputgroup" >
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-calendar"></i></span>
+                                        <p:inputMask value="#{bean_FormInicio.vencimientoTarjeta}" placeholder="Vencimiento  mes/año" mask="99/9999" validateMask="true" class="main-container-form-item-unit"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:fieldset>
+                        <br></br>
+                        <br></br>
+                        <p:fieldset id="data3" legend="Dirección" toggleable="true" toggleSpeed="500"  class="main-container-form-item">
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-12 ui-md-3 ">
+                                    <p:outputLabel for="@next" value="Provincia"/>
+                                    <p:selectOneMenu disabled="#{bean_FormInicio.estadoProvincia}"   id="Provincia"  value="#{bean_FormInicio.idProvincia}">
+
+                                        <p:ajax event="valueChange" update="Canton Barrio Distrito" listener="#{bean_FormInicio.estadoCantonFuncion()}" />
+
+                                        <f:selectItems value="#{bean_FormInicio.listaProvincia}"/>
+
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{bean_FormInicio.cantProvincia}" style="font-weight:bold;"/>
+                                        </f:facet>
+
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="ui-g-12 ui-md-3">
+                                    <p:outputLabel for="@next" value="Canton"/>
+                                    <p:selectOneMenu disabled="#{bean_FormInicio.estadoCanton}"  id="Canton"  value="#{bean_FormInicio.idCanton}">
+                                        <p:ajax event="valueChange" update="Canton Barrio Distrito" listener="#{bean_FormInicio.estadoDistritoFuncion()}" />
+                                        <f:selectItems value="#{bean_FormInicio.listaCanton}"/>
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{bean_FormInicio.cantCanton}" style="font-weight:bold;"/>
+                                        </f:facet>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="ui-g-12 ui-md-3">
+                                    <p:outputLabel  for="@next" value="Distrito"/>
+                                    <p:selectOneMenu  disabled="#{bean_FormInicio.estadoDistrito}"  id="Distrito"  value="#{bean_FormInicio.idDistrito}">
+                                        <p:ajax event="valueChange" update="Canton Barrio Distrito" listener="#{bean_FormInicio.estadoBarrioFuncion()}" />
+                                        <f:selectItems value="#{bean_FormInicio.listaDistrito}"/>
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{bean_FormInicio.cantDistrito}" style="font-weight:bold;"/>
+                                        </f:facet>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="ui-g-12 ui-md-3">
+                                    <p:outputLabel for="@next" value="Barrio"/>
+                                    <p:selectOneMenu disabled="#{bean_FormInicio.estadoBarrio}"  id="Barrio"  value="#{bean_FormInicio.idBarrio}">
+                                        <f:selectItems value="#{bean_FormInicio.listaBarrio}"/>
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{bean_FormInicio.cantBarrio}" style="font-weight:bold;"/>
+                                        </f:facet>
+                                    </p:selectOneMenu>
+                                </div>                        
+                            </div>
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-12 ui-md-6">
+                                    <div class="ui-inputgroup">
+                                        <span class="ui-inputgroup-addon"><i class="fa fa-street-view"></i></span>
+                                        <p:inputText value="#{bean_FormInicio.direccionSenias}" placeholder="Señas"/>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-4">
+                                    <div class="ui-inputgroup" >
+                                        <h:commandButton  value="Extra" class="main-container-form-button" actionListener="#{bean_FormInicio.agregaDireccion()}" />
+                                        <p:outputLabel value="#{bean_FormInicio.etiquetaDirec}" class="ing-label"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:fieldset>
+                        <br></br>
+                        <br></br>
+                        <p:fieldset id="data4" legend="Información adicional" toggleable="true" toggleSpeed="500"  class="main-container-form-item" >
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-12 ui-md-6">
+                                    <p:outputLabel for="@next" value="Horarios de entrega" class="main-container-form-label"/>
+                                    <div class="ui-inputgroup" >
+                                        <p:selectManyCheckbox id="basic" value="#{bean_FormInicio.horarioEntrega}" >
+                                            <f:selectItem itemLabel="Mañana" itemValue="Mañana"/>
+                                            <f:selectItem itemLabel="Tarde" itemValue="Tarde"/>
+                                            <f:selectItem itemLabel="Noche" itemValue="Noche"/>
+                                        </p:selectManyCheckbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:fieldset>
+                        <p:commandButton update="data1 data2 data3 data4 err-label" value="¡Registrarme!" actionListener="#{bean_FormInicio.registrarCliente()}" class="main-check-button" style="background-color: #e09f4f; color:#2F3131;  border:0px solid #598b96; " />
+                        <br></br>
+                        <div class="err-container">
+                            <p:outputLabel id="err-label" value="#{bean_FormInicio.etiquetaErr}" class="err-label"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+        <div class="main-footer">
+            <p>
+                <ul>
+                    Desarrolladores, diseñadores, autores, creadores 
+                    <li>John P. Alfaro C.</li>
+                    <li>Juan D. Araya C.</li>
+                </ul>
+            </p>
+            <P>
+                Proyecto final programado para la carrera de Ingeniería del Software de la Universidad Técnica Nacional
+            </P>
+            <p>
+                © 2021 CodIn Solutions, Inc
+            </p>
+        </div>
+    </h:body>
+</html>
+

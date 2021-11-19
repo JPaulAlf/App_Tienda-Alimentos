@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>SACP - Mantenimiento Inicio Sesion</title>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <link rel="stylesheet" href="CSS/barraMenu.css"/>
+        <link rel="stylesheet" href="CSS/global-inicioSesion.css"/>
+
+    </h:head>
+    <h:body>
+        <div class="container-menu">
+            <h:form>
+                <p:menubar class="container-menu-bar">
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="??????" url="#" />
+                    <p:menuitem class="container-menu-bar-item ui-g-12 " value="??????" url="#"  />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="??????" url="#"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="??????" url="#"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="??????" url="#"   />
+                    <p:menuitem class="container-menu-bar-item ui-g-12"  value="??????" url="#"   />
+                    <f:facet name="options">
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
+        <h:outputLabel class="alert" value="#{Bean_MantenimientoInicioSesion.errBanndera}"/>
+        <div class="main-container">
+            <div class="main-container-logIn">
+                <h:form>
+                    <div class="main-container-form-items">
+                        <div class="form-item-border">
+                            <label class="label-inicio-sesion">Inicio de Sesion:</label>
+                            <div class="ui-md-4 form-item">
+                                <div class="ui-inputgroup " >
+                                    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                                    <p:inputText value="#{Bean_MantenimientoInicioSesion.correoElectronico}" placeholder="Usuario" maxlength="40" />
+                                </div>
+                            </div>
+                            <div class=" ui-md-4 form-item">
+                                <div class="ui-inputgroup " >
+                                    <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+                                    <p:password value="#{Bean_MantenimientoInicioSesion.contraseniaUsuario}" id="nonFeedback" placeholder="Contrasenia" class="main-container-form-item-unit"/>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="main-container-form-buttons">
+                            <h:commandButton value="Ingresar" class="main-container-form-button green" actionListener="#{Bean_MantenimientoInicioSesion.validarInicioSesion()}"/>
+                            <h:commandButton value="Regresar" class="main-container-form-button black" action="index.xhtml"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+        <div class="main-footer">
+            <p>
+                <ul>
+                    Desarrolladores, diseñadores, autores, creadores 
+                    <li>John P. Alfaro C.</li>
+                    <li>Juan D. Araya C.</li>
+                </ul>
+            </p>
+            <P>
+                Proyecto final programado para la carrera de Ingeniería del Software de la Universidad Técnica Nacional
+            </P>
+            <p>
+                © 2021 CodIn Solutions, Inc
+            </p>
+        </div>
+    </h:body>
+</html>
+
